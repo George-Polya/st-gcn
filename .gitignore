@@ -18,6 +18,10 @@ __pycache__/
 # C extensions
 *.so
 
+# downoload data
+*.json
+*.skeleton
+
 # Distribution / packaging
 .Python
 build/

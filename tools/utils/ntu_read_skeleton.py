@@ -9,7 +9,11 @@ def read_skeleton(file):
         skeleton_sequence['frameInfo'] = []
         for t in range(skeleton_sequence['numFrame']):
             frame_info = {}
-            frame_info['numBody'] = int(f.readline())
+            print("file : ", file)
+            print("numFrame : ", skeleton_sequence["numFrame"])
+            numbody = f.readline()
+            print("numBody : ",  numbody)
+            frame_info['numBody'] = int(numbody)
             frame_info['bodyInfo'] = []
             for m in range(frame_info['numBody']):
                 body_info = {}

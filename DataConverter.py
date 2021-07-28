@@ -32,7 +32,7 @@ def attributeChange(dict):
                 del skeleton["keypoints_score"]
     return dict
 
-def framePreprocess(path):
+def data_converter(path):
     with open(path, "rb") as f:
         jsonDict = json.load(f)
 

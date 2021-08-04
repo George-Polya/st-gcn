@@ -59,6 +59,9 @@ class AbstractConverter(metaclass=ABCMeta):
         frames = self.remove_useless_in_persons(frames)
         self.new_dict = {"data": frames}
         self.new_dict = self.reduceSkeleton(self.new_dict)
+        input_path = input_path.split("/")
+        input_path = input_path[-1]
+       
         rm = re.sub("[-=_.#/>:$}]","",input_path)
         labels = re.sub("[0-9]","", rm).split("x")
         label_index = re.sub("[a-zA-Z]","", rm)[3]

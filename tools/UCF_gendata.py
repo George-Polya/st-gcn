@@ -70,17 +70,26 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Kinetics-skeleton Data Converter.')
     parser.add_argument(
-        '--data_path', default='data/Kinetics/kinetics-skeleton')
+        '--data_path', default='customData/UCF')
+    # parser.add_argument(
+    #     '--out_folder', default='data/Kinetics/kinetics-skeleton')
     parser.add_argument(
-        '--out_folder', default='data/Kinetics/kinetics-skeleton')
+        '--out_folder', default="customData/UCF"
+    )
     arg = parser.parse_args()
 
     part = ['train', 'val']
     for p in part:
-        data_path = '{}/kinetics_{}'.format(arg.data_path, p)
-        label_path = '{}/kinetics_{}_label.json'.format(arg.data_path, p)
+        # data_path = '{}/kinetics_{}'.format(arg.data_path, p)
+        # label_path = '{}/kinetics_{}_label.json'.format(arg.data_path, p)
+        # data_out_path = '{}/{}_data.npy'.format(arg.out_folder, p)
+        # label_out_path = '{}/{}_label.pkl'.format(arg.out_folder, p)
+
+        data_path = "{}/ucf_{}".format(arg.data_path, p)            
+        label_path = '{}/ucf_{}_label.json'.format(arg.data_path, p)
         data_out_path = '{}/{}_data.npy'.format(arg.out_folder, p)
         label_out_path = '{}/{}_label.pkl'.format(arg.out_folder, p)
+        
 
         if not os.path.exists(arg.out_folder):
             os.makedirs(arg.out_folder)

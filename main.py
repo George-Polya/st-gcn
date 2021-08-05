@@ -2,7 +2,7 @@
 import argparse
 import sys
 
-# torchlight
+#  torchlight
 import torchlight
 from torchlight import import_class
 

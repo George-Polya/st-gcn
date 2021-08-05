@@ -83,7 +83,7 @@ class Feeder_UCF(torch.utils.data.Dataset):
         # output data shape (N, C, T, V, M)
         self.N = len(self.sample_name)  #sample
         self.C = 3  #channel
-        self.T = 300  #frame
+        self.T = 40000 #frame
         self.V = 18  #joint
         self.M = self.num_person_out  #person
 
@@ -104,17 +104,22 @@ class Feeder_UCF(torch.utils.data.Dataset):
 
         # fill data_numpy
         data_numpy = np.zeros((self.C, self.T, self.V, self.num_person_in))
+        # count = 0
         for frame_info in video_info['data']:
             frame_index = frame_info['frame_index']
+            
             for m, skeleton_info in enumerate(frame_info["skeleton"]):
+                
                 if m >= self.num_person_in:
                     break
                 pose = skeleton_info['pose']
                 score = skeleton_info['score']
+                frame_index = int(frame_index)
                 data_numpy[0, frame_index, :, m] = pose[0::2]
                 data_numpy[1, frame_index, :, m] = pose[1::2]
                 data_numpy[2, frame_index, :, m] = score
-
+                # count += 1
+                # print(count)
         # centralization
         data_numpy[0:2] = data_numpy[0:2] - 0.5
         data_numpy[0][data_numpy[2] == 0] = 0

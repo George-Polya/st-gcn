@@ -9,7 +9,8 @@ from numpy.lib.format import open_memmap
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-from feeder.feeder_kinetics import Feeder_kinetics
+# from feeder.feeder_kinetics import Feeder_kinetics
+from feeder.feeder_ucf import Feeder_UCF
 
 toolbar_width = 30
 
@@ -36,9 +37,9 @@ def gendata(
         label_out_path,
         num_person_in=5,  #observe the first 5 persons 
         num_person_out=2,  #then choose 2 persons with the highest score 
-        max_frame=300):
+        max_frame=40000):
 
-    feeder = Feeder_kinetics(
+    feeder = Feeder_UCF(
         data_path=data_path,
         label_path=label_path,
         num_person_in=num_person_in,
@@ -74,7 +75,7 @@ if __name__ == '__main__':
     # parser.add_argument(
     #     '--out_folder', default='data/Kinetics/kinetics-skeleton')
     parser.add_argument(
-        '--out_folder', default="customData/UCF"
+        '--out_folder', default="data/UCF/ucf-skeleton"
     )
     arg = parser.parse_args()
 

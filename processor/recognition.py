@@ -18,9 +18,10 @@ from torchlight import import_class
 
 from .processor import Processor
 
-import os
-os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"]= "2,3"
+
+# import os
+# os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"]= "1"
 
 def weights_init(m):
     classname = m.__class__.__name__
@@ -88,12 +89,18 @@ class REC_Processor(Processor):
         for data, label in loader:
 
             # get data
-            print("Device : ", self.dev)
-            print("Count of using GPUs : ", torch.cuda.device_count())
-            print("Current cuda device : ", torch.cuda.current_device())
+            # print("Device : ", self.dev)
+            # print("Count of using GPUs : ", torch.cuda.device_count())
+            # print("Current cuda device : ", torch.cuda.current_device())
+            label = list(label)
+            for i in range(len(label)):
+                label[i] = int(label[i])
 
+            label = torch.tensor(label)
             data = data.float().to(self.dev)
             label = label.long().to(self.dev)
+            # self.model = nn.DataParallel(self.model)
+            # self.model.cuda()
 
             # forward
             output = self.model(data)
@@ -127,7 +134,15 @@ class REC_Processor(Processor):
             
             # get data
             data = data.float().to(self.dev)
-            print("label : ", label)
+            
+            label = list(label)
+            for i in range(len(label)):
+                label[i] = int(label[i])
+
+            label = torch.tensor(label)
+            # print("label : ", label)
+            # print("type(label) : ", type(label))
+            # print("type(label[0]): {}, label[0]: {}".format(type(label[0]),label[0]))
             label = label.long().to(self.dev)
 
             # inference

@@ -18,6 +18,10 @@ from torchlight import import_class
 
 from .processor import Processor
 
+import os
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]= "2,3"
+
 def weights_init(m):
     classname = m.__class__.__name__
     if classname.find('Conv1d') != -1:
@@ -84,6 +88,10 @@ class REC_Processor(Processor):
         for data, label in loader:
 
             # get data
+            print("Device : ", self.dev)
+            print("Count of using GPUs : ", torch.cuda.device_count())
+            print("Current cuda device : ", torch.cuda.current_device())
+
             data = data.float().to(self.dev)
             label = label.long().to(self.dev)
 

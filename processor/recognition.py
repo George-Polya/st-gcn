@@ -119,6 +119,7 @@ class REC_Processor(Processor):
             
             # get data
             data = data.float().to(self.dev)
+            print("label : ", label)
             label = label.long().to(self.dev)
 
             # inference

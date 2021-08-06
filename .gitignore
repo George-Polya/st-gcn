@@ -21,6 +21,8 @@ __pycache__/
 # downoload data
 *.json
 *.skeleton
+*.npy
+*.pkl
 
 # Distribution / packaging
 .Python

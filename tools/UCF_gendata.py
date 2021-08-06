@@ -9,7 +9,8 @@ from numpy.lib.format import open_memmap
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-from feeder.feeder_kinetics import Feeder_kinetics
+# from feeder.feeder_kinetics import Feeder_kinetics
+from feeder.feeder_ucf import Feeder_UCF
 
 toolbar_width = 30
 
@@ -36,9 +37,9 @@ def gendata(
         label_out_path,
         num_person_in=5,  #observe the first 5 persons 
         num_person_out=2,  #then choose 2 persons with the highest score 
-        max_frame=300):
+        max_frame=40000):
 
-    feeder = Feeder_kinetics(
+    feeder = Feeder_UCF(
         data_path=data_path,
         label_path=label_path,
         num_person_in=num_person_in,
@@ -70,17 +71,26 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Kinetics-skeleton Data Converter.')
     parser.add_argument(
-        '--data_path', default='kinetics-skeleton')
+        '--data_path', default='customData/UCF')
+    # parser.add_argument(
+    #     '--out_folder', default='data/Kinetics/kinetics-skeleton')
     parser.add_argument(
-        '--out_folder', default='data/Kinetics/kinetics-skeleton')
+        '--out_folder', default="data/UCF/ucf-skeleton"
+    )
     arg = parser.parse_args()
 
     part = ['train', 'val']
     for p in part:
-        data_path = '{}/kinetics_{}'.format(arg.data_path, p)
-        label_path = '{}/kinetics_{}_label.json'.format(arg.data_path, p)
+        # data_path = '{}/kinetics_{}'.format(arg.data_path, p)
+        # label_path = '{}/kinetics_{}_label.json'.format(arg.data_path, p)
+        # data_out_path = '{}/{}_data.npy'.format(arg.out_folder, p)
+        # label_out_path = '{}/{}_label.pkl'.format(arg.out_folder, p)
+
+        data_path = "{}/ucf_{}".format(arg.data_path, p)            
+        label_path = '{}/ucf_{}_label.json'.format(arg.data_path, p)
         data_out_path = '{}/{}_data.npy'.format(arg.out_folder, p)
         label_out_path = '{}/{}_label.pkl'.format(arg.out_folder, p)
+        
 
         if not os.path.exists(arg.out_folder):
             os.makedirs(arg.out_folder)

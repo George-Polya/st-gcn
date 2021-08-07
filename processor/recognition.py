@@ -89,12 +89,10 @@ class REC_Processor(Processor):
         for data, label in loader:
 
             # get data
-            # print("Device : ", self.dev)
-            # print("Count of using GPUs : ", torch.cuda.device_count())
-            # print("Current cuda device : ", torch.cuda.current_device())
+          
             label = list(label)
             for i in range(len(label)):
-                label[i] = int(label[i])
+                label[i] = float(label[i])
 
             label = torch.tensor(label)
             data = data.float().to(self.dev)
@@ -137,10 +135,10 @@ class REC_Processor(Processor):
             
             label = list(label)
             for i in range(len(label)):
-                label[i] = int(label[i])
+                label[i] = float(label[i])
 
             label = torch.tensor(label)
-            # print("label : ", label)
+            print("label : ", label)
             # print("type(label) : ", type(label))
             # print("type(label[0]): {}, label[0]: {}".format(type(label[0]),label[0]))
             label = label.long().to(self.dev)

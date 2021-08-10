@@ -72,12 +72,13 @@ class Model(nn.Module):
         N, C, T, V, M = x.size()
         x = x.permute(0, 4, 3, 1, 2).contiguous()
         x = x.view(N * M, V * C, T)
+        # print("x is contiguous : ", x.is_contiguous())
         x = self.data_bn(x)
         x = x.view(N, M, V, C, T)
         x = x.permute(0, 1, 3, 4, 2).contiguous()
         x = x.view(N * M, C, T, V)
 
-        # forwad
+        # forward
         for gcn, importance in zip(self.st_gcn_networks, self.edge_importance):
             x, _ = gcn(x, self.A * importance)
 

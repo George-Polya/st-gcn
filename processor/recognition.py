@@ -95,6 +95,7 @@ class REC_Processor(Processor):
                 label[i] = float(label[i])
 
             label = torch.tensor(label)
+            #  print("label : ", label)
             data = data.float().to(self.dev)
             label = label.long().to(self.dev)
             # self.model = nn.DataParallel(self.model)
@@ -138,13 +139,14 @@ class REC_Processor(Processor):
                 label[i] = float(label[i])
 
             label = torch.tensor(label)
-            print("label : ", label)
+            # print("label : ", label)
             # print("type(label) : ", type(label))
             # print("type(label[0]): {}, label[0]: {}".format(type(label[0]),label[0]))
             label = label.long().to(self.dev)
 
             # inference
             with torch.no_grad():
+                # print("data : ", data)
                 output = self.model(data)
             result_frag.append(output.data.cpu().numpy())
 

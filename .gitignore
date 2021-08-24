@@ -23,6 +23,7 @@ __pycache__/
 *.skeleton
 *.npy
 *.pkl
+*.zip
 
 # Distribution / packaging
 .Python

@@ -1,7 +1,7 @@
 
-from .AbstractConverter import AbstractConverter
+from .AbstractConverter import AIhubAbstractConverter
 
-class GeneralConverter(AbstractConverter):
+class GeneralConverter(AIhubAbstractConverter):
 
 
     def remove_useless_in_persons(self, frames):
@@ -16,7 +16,7 @@ class GeneralConverter(AbstractConverter):
         return frames
 
 
-class FightingConverter(AbstractConverter):
+class FightingConverter(AIhubAbstractConverter):
     def remove_useless_in_persons(self, frames):
         for frame in frames:
             if frame["persons"]:
@@ -31,6 +31,8 @@ class FightingConverter(AbstractConverter):
             frame["skeleton"] = frame["persons"]
             del frame["persons"]
         return frames
+
+
 
 
 

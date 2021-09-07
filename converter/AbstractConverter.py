@@ -2,6 +2,9 @@ from abc import *
 import json
 import re
 
+
+
+
 class AbstractConverter(metaclass=ABCMeta):
 
     def removeObjectAttribute(self,frame):
@@ -48,6 +51,17 @@ class AbstractConverter(metaclass=ABCMeta):
 
     
     def convert(self,input_path):
+        pass
+    
+    def store(self,output_path):
+        with open(output_path, "w") as f:
+            json.dump(self.new_dict, f, indent=2)
+
+
+
+
+class UCFAbstractConverter(AbstractConverter):
+    def convert(self,input_path):
         with open(input_path, "rb") as f:
             jsonDict = json.load(f)
 
@@ -63,19 +77,48 @@ class AbstractConverter(metaclass=ABCMeta):
         input_path = input_path[-1]
        
         rm = re.sub("[-=_.#/>:$}]","",input_path)
-        labels = re.sub("[0-9]","", rm).split("x")
-        label_index = re.sub("[a-zA-Z]","", rm)[3]
         
-        label = labels[0]
+        labels = re.sub("[0-9]","", rm).split("x")
+        label_index = None
+        label = labels[0].lower()
+
 
         self.new_dict["label"] = label
-        self.new_dict["label_index"] = label_index
         
         
         return self.new_dict
     
-    def store(self,output_path):
-        with open(output_path, "w") as f:
-            json.dump(self.new_dict, f)
 
 
+
+class AIhubAbstractConverter(AbstractConverter):
+    def convert(self,input_path):
+        with open(input_path, "r") as f:
+            jsonDict = json.load(f)
+
+        frames = list()
+        for frame in jsonDict["frames"]:
+            frame = self.removeObjectAttribute(frame)
+            frames.append(frame)
+
+        frames = self.remove_useless_in_persons(frames)
+        self.new_dict = {"data": frames}
+        self.new_dict = self.reduceSkeleton(self.new_dict)
+        input_path = input_path.split("/")
+        input_path = input_path[-1]
+        label = input_path.split("_")[2][:-2]
+        self.new_dict["label"] = label
+
+        # rm = re.sub("[-=_.#/>:$}]","",input_path)
+        # print(rm)
+        # labels = re.sub("[0-9]","", rm).split("x")
+        # label_index = re.sub("[a-zA-Z]","", rm)[3]
+        
+        # label = labels[0]
+
+        # self.new_dict["label"] = label
+        # self.new_dict["label_index"] = label_index
+        
+        
+        return self.new_dict
+    

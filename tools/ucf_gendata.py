@@ -59,11 +59,14 @@ def gendata(
         
         data, label = feeder[i]
         print_toolbar(i * 1.0 / len(sample_name),
-                      '({:>5}/{:<5}) Processing data: '.format(
-                          i + 1, len(sample_name)))
+                      '({:>5}/{:<5}) Processing data: '.format(i + 1, len(sample_name)))
         fp[i, :, 0:data.shape[1], :, :] = data
         # print(label)
         sample_label.append(label)
+        
+    print(len(sample_label))
+    print(len(sample_name))
+
 
     with open(label_out_path, 'wb') as f:
 

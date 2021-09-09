@@ -53,7 +53,7 @@ class REC_Processor(Processor):
             self.optimizer = optim.SGD(
                 self.model.parameters(),
                 lr=self.arg.base_lr,
-                momentum=0.9,
+                momentum=0.92,
                 nesterov=self.arg.nesterov,
                 weight_decay=self.arg.weight_decay)
         elif self.arg.optimizer == 'Adam':
@@ -181,7 +181,7 @@ class REC_Processor(Processor):
         # optim
         parser.add_argument('--base_lr', type=float, default=0.01, help='initial learning rate')
         parser.add_argument('--step', type=int, default=[], nargs='+', help='the epoch where optimizer reduce the learning rate')
-        parser.add_argument('--optimizer', default='SGD', help='type of optimizer')
+        parser.add_argument('--optimizer', default='Adam', help='type of optimizer')
         parser.add_argument('--nesterov', type=str2bool, default=True, help='use nesterov or not')
         parser.add_argument('--weight_decay', type=float, default=0.0001, help='weight decay for optimizer')
         # endregion yapf: enable

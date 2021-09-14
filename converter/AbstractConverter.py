@@ -25,10 +25,10 @@ class AbstractConverter(metaclass=ABCMeta):
                 
                     skeleton["score"] = list()
                     # print(len(skeleton["keypoints"]))
-                    for i in range(18):
+                    for i in range(19):
                         
                             
-                        if i in [9,10,11,12,13,14,15,16,17]:
+                        if i in [9,10,11,12,13,14,15,16,17,18]:
                             
                             split = list(map(float, skeleton["keypoints"][i].split(",")))
                         
@@ -126,40 +126,42 @@ class AIhubAbstractConverter(AbstractConverter):
 
 class E2ONAbstractConverter(AbstractConverter):
     def reduceSkeleton(self, dict):
-         for data in dict["data"]:
-            if data["skeleton"]:
-                print(len(data["skeleton"]["keypoints"]))
-                # for skeleton in data["skeleton"]:
-                # print(data["skeleton"])
-                    # skeleton["pose"] = list()
-                
-                    # skeleton["score"] = list()
 
-                    # for i in range():
-                    #     print(i)
-                            
-                    #     if i in [9,10,11,12,13,14,15,16,17,18]:
-                            
-                    #         split = list(map(float, skeleton["keypoints"][i].split(",")))
+        for data in dict["data"]:
+                if data["skeleton"]:
 
-                    #         skeleton["pose"].append(split[0])
-                    #         skeleton["pose"].append(split[1])
-                        
-                    #         skeleton["score"].append(float(skeleton["keypoints_score"][i]))
-                    #     elif i in [0,1,2,3,4,5,6,7]:
-                    #         # print(i)
-                    #         split = list(map(float, skeleton["keypoints"][i].split(",")))
-                    #         skeleton["pose"].append(split[0])
-                    #         skeleton["pose"].append(split[1])
-                            
-                        
-                    #         skeleton["score"].append(float(skeleton["keypoints_score"][i]))
-                    #     else:
-                    #         pass
+                # print(len(data["skeleton"][0]["keypoints"]))
+                    for skeleton in data["skeleton"]:
+                    
+                        skeleton["pose"] = list()
+                    
+                        skeleton["score"] = list()
 
-                    # del skeleton["keypoints"]
-                    # del skeleton["keypoints_score"]
-        # return dict
+                        for i in range(19):
+                            # print(i)
+                                
+                            if i in [9,10,11,12,13,14,15,16,17,18]:
+                                
+                                split = list(map(float, skeleton["keypoints"][i].split(",")))
+
+                                skeleton["pose"].append(split[0])
+                                skeleton["pose"].append(split[1])
+                            
+                                skeleton["score"].append(float(skeleton["keypoints_score"][i]))
+                            elif i in [0,1,2,3,4,5,6,7]:
+                                # print(i)
+                                split = list(map(float, skeleton["keypoints"][i].split(",")))
+                                skeleton["pose"].append(split[0])
+                                skeleton["pose"].append(split[1])
+                                
+                            
+                                skeleton["score"].append(float(skeleton["keypoints_score"][i]))
+                            else:
+                                pass
+
+                        del skeleton["keypoints"]
+                        del skeleton["keypoints_score"]
+        return dict
 
 
     def convert(self,input_path):
@@ -175,9 +177,8 @@ class E2ONAbstractConverter(AbstractConverter):
         self.new_dict = {"data": frames}
         self.new_dict = self.reduceSkeleton(self.new_dict)
         input_path = input_path.split("/")
-        input_path = input_path[-1]
-        print(input_path)
-        
+        input_path = input_path[-1].split("_")[0]
+        print(input_path)        
         
         return self.new_dict
 

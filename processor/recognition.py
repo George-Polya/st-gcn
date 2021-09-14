@@ -86,7 +86,7 @@ class REC_Processor(Processor):
         loader = self.data_loader['train']
         loss_value = []
 
-        for data, label in loader:
+        for i, (data, label) in enumerate(loader):
 
             # get data
           
@@ -98,13 +98,12 @@ class REC_Processor(Processor):
             # print("label : ", label)
             data = data.float().to(self.dev)
             label = label.long().to(self.dev)
-            # self.model = nn.DataParallel(self.model)
-            # self.model.cuda()
+            
 
             # forward
             output = self.model(data)
             loss = self.loss(output, label)
-
+            
             # backward
             self.optimizer.zero_grad()
             loss.backward()

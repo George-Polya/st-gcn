@@ -83,6 +83,8 @@ class UCFAbstractConverter(AbstractConverter):
         labels = re.sub("[0-9]","", rm).split("x")
         
         label = labels[0].lower()
+        if label == "fight":
+            label = "fighting"
 
 
         self.new_dict["label"] = label
@@ -125,45 +127,6 @@ class AIhubAbstractConverter(AbstractConverter):
         return self.new_dict
 
 class E2ONAbstractConverter(AbstractConverter):
-    def reduceSkeleton(self, dict):
-
-        for data in dict["data"]:
-                if data["skeleton"]:
-
-                # print(len(data["skeleton"][0]["keypoints"]))
-                    for skeleton in data["skeleton"]:
-                    
-                        skeleton["pose"] = list()
-                    
-                        skeleton["score"] = list()
-
-                        for i in range(19):
-                            # print(i)
-                                
-                            if i in [9,10,11,12,13,14,15,16,17,18]:
-                                
-                                split = list(map(float, skeleton["keypoints"][i].split(",")))
-
-                                skeleton["pose"].append(split[0])
-                                skeleton["pose"].append(split[1])
-                            
-                                skeleton["score"].append(float(skeleton["keypoints_score"][i]))
-                            elif i in [0,1,2,3,4,5,6,7]:
-                                # print(i)
-                                split = list(map(float, skeleton["keypoints"][i].split(",")))
-                                skeleton["pose"].append(split[0])
-                                skeleton["pose"].append(split[1])
-                                
-                            
-                                skeleton["score"].append(float(skeleton["keypoints_score"][i]))
-                            else:
-                                pass
-
-                        del skeleton["keypoints"]
-                        del skeleton["keypoints_score"]
-        return dict
-
-
     def convert(self,input_path):
         with open(input_path, "r") as f:
             jsonDict = json.load(f)
@@ -178,7 +141,17 @@ class E2ONAbstractConverter(AbstractConverter):
         self.new_dict = self.reduceSkeleton(self.new_dict)
         input_path = input_path.split("/")
         input_path = input_path[-1].split("_")[0]
-        print(input_path)        
+        label = None
+        if input_path == "C011" or input_path=="C012":
+            label = "childabuse"
+        elif input_path == "C021":
+            label = "burglary"
+        elif input_path == "C031" or input_path =="C032":
+            label = "assault"
+        elif input_path == "C041" or input_path == "C042":
+            label = "shoplifting"
+        self.new_dict["label"] = label
+        
         
         return self.new_dict
 

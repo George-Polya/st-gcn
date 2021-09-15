@@ -83,8 +83,8 @@ class UCFAbstractConverter(AbstractConverter):
         labels = re.sub("[0-9]","", rm).split("x")
         
         label = labels[0].lower()
-        if label == "fight":
-            label = "fighting"
+        if label == "fighting":
+            label = "fight"
 
 
         self.new_dict["label"] = label
@@ -108,21 +108,10 @@ class AIhubAbstractConverter(AbstractConverter):
         frames = self.remove_useless_in_persons(frames)
         self.new_dict = {"data": frames}
         self.new_dict = self.reduceSkeleton(self.new_dict)
-        input_path = input_path.split("/")
-        input_path = input_path[-1]
-        label = input_path.split("_")[2][:-2]
-        self.new_dict["label"] = label
-
-        rm = re.sub("[-=_.#/>:$}]","",input_path)
-     
-        labels = re.sub("[0-9]","", rm).split("x")
-        label_index = re.sub("[a-zA-Z]","", rm)[3]
+        label = input_path.split("_")[3][:-2].lower()
         
-        label = labels[0]
 
         self.new_dict["label"] = label
-        self.new_dict["label_index"] = label_index
-        
         
         return self.new_dict
 

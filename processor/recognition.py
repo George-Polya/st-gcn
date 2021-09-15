@@ -86,7 +86,7 @@ class REC_Processor(Processor):
         loader = self.data_loader['train']
         loss_value = []
 
-        for i, (data, label) in enumerate(loader):
+        for data, label in loader:
 
             # get data
           

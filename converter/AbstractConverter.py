@@ -28,7 +28,7 @@ class AbstractConverter(metaclass=ABCMeta):
                     for i in range(19):
                         
                             
-                        if i in [9,10,11,12,13,14,15,16,17,18]:
+                        if i in [8,9,10,11,12,13,14]:
                             
                             split = list(map(float, skeleton["keypoints"][i].split(",")))
                         

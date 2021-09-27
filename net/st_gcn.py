@@ -39,7 +39,10 @@ class Model(nn.Module):
         spatial_kernel_size = A.size(0)
         temporal_kernel_size = 9
         kernel_size = (temporal_kernel_size, spatial_kernel_size)
-        self.data_bn = nn.BatchNorm1d(in_channels * A.size(1))
+        
+        
+        self.data_bn = nn.BatchNorm1d(in_channels * A.size(1)) # in_channelds * A.size(1) == 45
+        
         kwargs0 = {k: v for k, v in kwargs.items() if k != 'dropout'}
         self.st_gcn_networks = nn.ModuleList((
             st_gcn(in_channels, 64, kernel_size, 1, residual=False, **kwargs0),
@@ -69,9 +72,13 @@ class Model(nn.Module):
     def forward(self, x):
 
         # data normalization
-        N, C, T, V, M = x.size()
+        N, C, T, V,  M = x.size() # V : the number of graph nodes(18), C(2)
+        
+        print(x.size())
         x = x.permute(0, 4, 3, 1, 2).contiguous()
+        print(x.size())
         x = x.view(N * M, V * C, T)
+        print(x.size())
         x = self.data_bn(x)
         x = x.view(N, M, V, C, T)
         x = x.permute(0, 1, 3, 4, 2).contiguous()

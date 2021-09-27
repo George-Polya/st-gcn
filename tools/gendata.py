@@ -53,7 +53,7 @@ def gendata(
         data_out_path,
         dtype='float32',
         mode='w+',
-        shape=(len(sample_name), 3, max_frame, 18, num_person_out))
+        shape=(len(sample_name), 3, max_frame, 15, num_person_out))
 
     for i, s in enumerate(sample_name):
         

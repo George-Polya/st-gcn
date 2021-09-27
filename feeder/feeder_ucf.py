@@ -85,7 +85,7 @@ class Feeder_UCF(torch.utils.data.Dataset):
         self.N = len(self.sample_name)  #sample
         self.C = 3  #channel
         self.T = 90000 #frame
-        self.V = 18  #joint
+        self.V = 15  #joint
         self.M = self.num_person_out  #person
 
     def __len__(self):
@@ -117,6 +117,7 @@ class Feeder_UCF(torch.utils.data.Dataset):
                 score = skeleton_info['score']
                 frame_index = int(frame_index)
                 # print(frame_index)
+
                 data_numpy[0, frame_index, :, m] = pose[0::2]
                 data_numpy[1, frame_index, :, m] = pose[1::2]
                 data_numpy[2, frame_index, :, m] = score

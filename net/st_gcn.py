@@ -74,11 +74,11 @@ class Model(nn.Module):
         # data normalization
         N, C, T, V,  M = x.size() # V : the number of graph nodes(18), C(2)
         
-        print(x.size())
+        # print(x.size())
         x = x.permute(0, 4, 3, 1, 2).contiguous()
-        print(x.size())
+        # print(x.size())
         x = x.view(N * M, V * C, T)
-        print(x.size())
+        # print(x.size())
         x = self.data_bn(x)
         x = x.view(N, M, V, C, T)
         x = x.permute(0, 1, 3, 4, 2).contiguous()

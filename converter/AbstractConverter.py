@@ -130,16 +130,16 @@ class E2ONAbstractConverter(AbstractConverter):
         self.new_dict = self.reduceSkeleton(self.new_dict)
         input_path = input_path.split("/")
         input_path = input_path[-1].split("_")[0]
-        label = None
-        if input_path == "C011" or input_path=="C012":
-            label = "childabuse"
-        elif input_path == "C021":
-            label = "burglary"
-        elif input_path == "C031" or input_path =="C032":
-            label = "assault"
-        elif input_path == "C041" or input_path == "C042":
-            label = "shoplifting"
-        self.new_dict["label"] = label
+        # label = None
+        # if input_path == "C011" or input_path=="C012":
+        #     label = "childabuse"
+        # elif input_path == "C021":
+        #     label = "burglary"
+        # elif input_path == "C031" or input_path =="C032":
+        #     label = "assault"
+        # elif input_path == "C041" or input_path == "C042":
+        #     label = "shoplifting"
+        self.new_dict["label"] = input_path
         
         
         return self.new_dict

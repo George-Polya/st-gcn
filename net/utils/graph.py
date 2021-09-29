@@ -48,8 +48,9 @@ class Graph():
             # self.center = 1
             self.num_node = 15
             self_link = [(i,i) for i in range(self.num_node)]
-            neighbor_link = [(4,3),(3,2),(7,6),(6,5),(13,12),(12,11), (10,9), (9,8),
-                             (11,5), (8,2), (5,1), (2,1),(0,1)]
+            neighbor_link = [(4,3),(3,2),(7,6),(6,5),(1,0),(8,1),(2,1),(5,1),
+                             (13,12),(14,13),(12,8),
+                             (9,8), (10, 9),(11,10)]
             self.edge = self_link + neighbor_link 
             self.center = 1       
 

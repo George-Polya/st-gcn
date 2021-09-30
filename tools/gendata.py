@@ -77,11 +77,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='All skeleton Data Converter.')
     parser.add_argument(
-        '--data_path', default='two')
+        '--data_path', default='allE2ON')
     # parser.add_argument(
     #     '--out_folder', default='data/Kinetics/kinetics-skeleton')
     parser.add_argument(
-        '--out_folder', default="data/two/"
+        '--out_folder', default="data/allE2ON/"
     )
     arg = parser.parse_args()
 
